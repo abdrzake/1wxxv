@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلباتي - متجر إلكتروني</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arabic Typography', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+        
+        .nav a:hover {
+            color: #ddd;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .orders-list {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .order-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-right: 4px solid #667eea;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .order-number {
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .order-date {
+            color: #999;
+            font-size: 13px;
+        }
+        
+        .order-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-processing {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-shipped {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .order-items {
+            margin: 15px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .order-items p {
+            margin: 8px 0;
+        }
+        
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .order-total {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 16px;
+        }
+        
+        .order-action {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+        
+        .order-action:hover {
+            background: #5568d3;
+        }
+        
+        .empty-orders {
+            background: white;
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .empty-orders-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .empty-orders p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .empty-orders a {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .empty-orders a:hover {
+            background: #5568d3;
+        }
+        
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .order-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🛍️ متجرنا</div>
+            <div class="nav">
+                <a href="/store">المتجر</a>
+                <a href="/cart">السلة</a>
+                <a href="/profile">حسابي</a>
+                <a href="/logout">خروج</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>📋 طلباتي</h1>
+        
+        {% if orders %}
+            <div class="orders-list">
+                {% for order in orders %}
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">الطلب #{{ order[0] }}</div>
+                                <div class="order-date">{{ order[4] }}</div>
+                            </div>
+                            <div class="order-status status-{% if 'قيد' in order[3] %}processing{% elif 'مشحون' in order[3] %}shipped{% else %}delivered{% endif %}">
+                                {{ order[3] }}
+                            </div>
+                        </div>
+                        
+                        <div class="order-items">
+                            <p><strong>الحالة:</strong> {{ order[3] }}</p>
+                            <p><strong>إجمالي المبلغ:</strong> {{ order[2] }} ر.س</p>
+                        </div>
+                        
+                        <div class="order-footer">
+                            <div class="order-total">
+                                الإجمالي: {{ (order[2] * 1.15) | round(2) }} ر.س
+                            </div>
+                            <a href="#" class="order-action">عرض التفاصيل</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-orders">
+                <div class="empty-orders-icon">📋</div>
+                <p>لا توجد طلبات حتى الآن</p>
+                <p style="color: #999; font-size: 14px;">ابدأ التسوق الآن واستمتع بمنتجاتنا الرائعة</p>
+                <a href="/store">ابدأ التسوق</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
