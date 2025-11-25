@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - متجر إلكتروني</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arabic Typography', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        label {
+            display: block;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: Arial, sans-serif;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-right: 4px solid #c33;
+            text-align: right;
+            font-size: 14px;
+        }
+        
+        .link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .link a:hover {
+            color: #764ba2;
+        }
+        
+        .password-tips {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .password-tips ul {
+            margin: 8px 0 0 20px;
+        }
+        
+        .password-tips li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>🛍️ متجر</h1>
+            <p>متجرك الإلكتروني الموثوق</p>
+        </div>
+        
+        <h2>إنشاء حساب جديد</h2>
+        
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+        
+        <form method="post">
+            <div class="form-group">
+                <label for="username">اسم المستخدم</label>
+                <input type="text" id="username" name="username" placeholder="اختر اسم مستخدم" required autofocus>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" name="password" placeholder="اختر كلمة مرور قوية" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm_password">تأكيد كلمة المرور</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="أعد كتابة كلمة المرور" required>
+            </div>
+            
+            <div class="password-tips">
+                <strong>نصائح للحساب الآمن:</strong>
+                <ul>
+                    <li>استخدم كلمة مرور قوية (حروف وأرقام)</li>
+                    <li>لا تشارك حسابك مع الآخرين</li>
+                    <li>تذكر كلمة مرورك بعناية</li>
+                </ul>
+            </div>
+            
+            <button type="submit">إنشاء حساب</button>
+        </form>
+        
+        <div class="link">
+            <p>هل لديك حساب بالفعل؟ <a href="/login">دخول</a></p>
+        </div>
+    </div>
+</body>
+</html>
