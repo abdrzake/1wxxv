@@ -1,0 +1,43 @@
+{# Language Switcher Component #}
+{% macro language_switcher(current_lang) %}
+<div class="language-switcher">
+    <a href="/set-language/ar" class="lang-btn {% if current_lang == 'ar' %}active{% endif %}">العربية</a>
+    <a href="/set-language/en" class="lang-btn {% if current_lang == 'en' %}active{% endif %}">English</a>
+</div>
+{% endmacro %}
+
+{# Navigation Styles #}
+<style>
+    .language-switcher {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1000;
+    }
+    
+    .lang-btn {
+        padding: 8px 15px;
+        background: white;
+        border: 2px solid #667eea;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        color: #667eea;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+    }
+    
+    .lang-btn.active {
+        background: #667eea;
+        color: white;
+    }
+    
+    .lang-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+</style>
